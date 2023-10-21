@@ -62,6 +62,6 @@ sozo execute $GINKOU_ACTION_ADDR deposit --calldata  0x1,0x1,0x2,0x8
 
 ## Deployed on Testnet
 
-World: https://goerli.voyager.online/contract/0x64a338a41cf8b5a476632c727806888172ec057eff3240ba42373eabed53a1
-Player Action: https://goerli.voyager.online/contract/0x7f235a6baf3eb4feb81c99b828ca74894864d92930e81d27017db8358cef304
-Ginkou Action: https://goerli.voyager.online/contract/0x4937ca98dabbf008e69d7276fd42b93ccaa2690fa282988ae54ce6b3a3e51bf
+- World: https://goerli.voyager.online/contract/0x64a338a41cf8b5a476632c727806888172ec057eff3240ba42373eabed53a1
+- Player Action: https://goerli.voyager.online/contract/0x7f235a6baf3eb4feb81c99b828ca74894864d92930e81d27017db8358cef304
+- Ginkou Action: https://goerli.voyager.online/contract/0x4937ca98dabbf008e69d7276fd42b93ccaa2690fa282988ae54ce6b3a3e51bf
