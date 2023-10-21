@@ -1,5 +1,5 @@
 [package]
-name = "Bank"
+name = "Ginkou"
 version = "0.1.0"
 cairo-version = "2.2.0"
 
@@ -17,6 +17,6 @@ openzeppelin = { git = "https://github.com/OpenZeppelin/cairo-contracts.git", ta
 initializer_class_hash = "0xbeef"
 
 [tool.dojo.env]
-rpc_url = "http://localhost:5050/"
-account_address = "0x5686a647a9cdd63ade617e0baf3b364856b813b508f03903eb58a7e622d5855"
-private_key = "0x33003003001800009900180300d206308b0070db00121318d17b5e6262150b"
+# rpc_url = "http://localhost:5050/"
+# account_address = "0x5686a647a9cdd63ade617e0baf3b364856b813b508f03903eb58a7e622d5855"
+# private_key = "0x33003003001800009900180300d206308b0070db00121318d17b5e6262150b"

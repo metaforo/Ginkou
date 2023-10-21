@@ -1,5 +1,5 @@
 use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
-use Bank::utils;
+use Ginkou::utils;
 use starknet::{ContractAddress};
 
 #[derive(Model, Copy, Drop, Print, Serde, SerdeLen)]

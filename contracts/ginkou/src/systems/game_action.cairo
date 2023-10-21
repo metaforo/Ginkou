@@ -17,9 +17,9 @@ mod game_actions {
     use starknet::{ContractAddress};
     use super::IGameAction;
 
-    use Bank::components::game::{Game, GameInfo, GameTracker, GameStatus};
-    use Bank::constants::GAME_CONFIG;
-    use Bank::utils;
+    use Ginkou::components::game::{Game, GameInfo, GameTracker, GameStatus};
+    use Ginkou::constants::GAME_CONFIG;
+    use Ginkou::utils;
 
     #[external(v0)]
     impl GameActionImpl of IGameAction<ContractState> {
