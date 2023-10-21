@@ -11,7 +11,7 @@ By providing these values, the query retrieves information about the player with
 
 ```bash
 curl '{torii_host}/graphql' \
-  --data-raw '{"operationName":"FilteredEntities","variables":{"keys":["0x1","0x1936dc82b6433e0bf62e3e3f310b522b090c23968feff53dfcf9d0e012ff9e6"]},"query":"query FilteredEntities($keys: [String\u0021]\u0021) {\n  entities(keys: $keys) {\n    edges {\n      node {\n        model_names\n        models {\n          ... on Player {\n            player_id\n            name\n          }\n        }\n      }\n    }\n  }\n}\n"}' \
+  --data-raw '{"operationName":"FilteredEntities","variables":{"keys":["0x1","{YOUR_WALLET_ACCOUNT}"]},"query":"query FilteredEntities($keys: [String\u0021]\u0021) {\n  entities(keys: $keys) {\n    edges {\n      node {\n        model_names\n        models {\n          ... on Player {\n            player_id\n            name\n          }\n        }\n      }\n    }\n  }\n}\n"}' \
   --compressed
 ```
 
