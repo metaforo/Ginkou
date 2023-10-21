@@ -22,8 +22,8 @@ const ButtonClick = () => {
 
     const erc1155_address = useMemo(() => "0x03467674358c444d5868e40b4de2c8b08f0146cbdb4f77242bd7619efcf3c0a6", [])
 
-    const werc20_address = useMemo(() => "0x0734ca91d8ab5805855536572f85f49e93049edb9914402018cd33d8f46e52bc", [])
-  const eth_address = useMemo(() => "0x06044d3038dee0011c54e38d3cf53b1ff082cb9af3ffb90a741df3ddb05b152d", [])
+    const  eth_address  = useMemo(() => "0x06044d3038dee0011c54e38d3cf53b1ff082cb9af3ffb90a741df3ddb05b152d", [])
+    const  werc20_address = useMemo(() => "0x0734ca91d8ab5805855536572f85f49e93049edb9914402018cd33d8f46e52bc", [])
 
   const ekubo_position_address = useMemo(() => "0x73fa8432bf59f8ed535f29acfd89a7020758bda7be509e00dfed8a9fde12ddc", [])
   const ekubo_core_address = useMemo(() => "0x031e8a7ab6a6a556548ac85cbb8b5f56e8905696e9f13e9a858142b8ee0cc221", [])
@@ -85,7 +85,7 @@ const handleSwap = useCallback(async () => {
     if (!account) return;
     // debugger;
     const params = {
-        amountIn: 0.001 * (10 **18),
+        amountIn:  wGoldForSwap* (10 **18),
         minERC20AmountOut: 1313331313,
         simpleSwapperAddress: simple_swapper,
         userAddress: account.address,
@@ -127,12 +127,58 @@ const handleSwap = useCallback(async () => {
     )
   }, [address, erc1155_address, getERC1155Balance, mintAmount]);
 
+    const handleAddLiquidity = useCallback(async () => {
+
+        if (!account) return;
+
+        const params = {
+            erc1155Amount: erc1155Amount,
+            erc20Amount: ethAmount * (10 **18),
+            fee: FeeAmount.LOWEST,
+            lowerPrice: lowerBound,
+            upperPrice:upperBound,
+        };
+
+        //add liquidity
+        const { transaction_hash } = await wrap.addLiquidity(params);
+        console.log(transaction_hash);
+
+    }, [account, lowerBound, upperBound, ethAmount, erc1155Amount])
+
   return (
     <div>
 
       <div>
           <p>Current Price : 1 WGold =  {currentPrice} WSliver </p>
       </div>
+
+        <div>
+            <button onClick={mayInitializePool}>may initialize pool</button>
+        </div>
+
+        <div>
+            <h3> Add Liquidity </h3>
+        </div>
+        <div>
+            <label htmlFor="lowerBound">Lower Price For ETH/ERC1155:</label>
+            <input type="number" id="lowerBound" value={lowerBound} onChange={(e) => setLowerBound(parseFloat(e.target.value))} />
+        </div>
+        <div>
+            <label htmlFor="upperBound">Upper Price For ETH/ERC1155:</label>
+            <input type="number" id="upperBound" value={upperBound} onChange={(e) => setUpperBound(parseFloat(e.target.value))} />
+        </div>
+        <div>
+            <label htmlFor="eth amount">eth Amount:</label>
+            <input type="number" id="erc20 amount" value={ethAmount} onChange={(e) => setAddLiquidityEthAmount(parseFloat(e.target.value))} />
+        </div>
+        <div>
+            <label htmlFor="erc1155 amount">ERC1155 amount:</label>
+            <input type="number" id="erc1155 amount" value={erc1155Amount} onChange={(e) => setAddLiquidityERC1155Amount(parseFloat(e.target.value))} />
+        </div>
+        <div>
+            <button onClick={handleAddLiquidity}>add liquidity</button>
+        </div>
+
 
 
         <div>

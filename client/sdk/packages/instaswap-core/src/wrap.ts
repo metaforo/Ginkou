@@ -192,16 +192,17 @@ export class Wrap {
         }
 
 
+
         return Wrap.account.execute([
-                    Wrap.ERC1155ApproveCall,
-                    Wrap.createDepositCall(Wrap.WERC20Address,params.erc1155Amount),
+                    // Wrap.ERC1155ApproveCall,
+                    // Wrap.createDepositCall(Wrap.WERC20Address,params.erc1155Amount),
                     Wrap.createTransferCall(Wrap.WERC20Address,Wrap.EkuboPositionAddress,
                         BigInt(params.erc1155Amount) * (BigInt(10) ** BigInt(18))),
                     Wrap.createTransferCall(Wrap.ERC20Address,Wrap.EkuboPositionAddress,BigInt(params.erc20Amount)),
                     mintAndDeposit,
                     Wrap.createClearCall(Wrap.EkuboPositionAddress,Wrap.WERC20Address),
                     Wrap.createClearCall(Wrap.EkuboPositionAddress,Wrap.ERC20Address),
-                    Wrap.CancelERC1155ApproveCall
+                    // Wrap.CancelERC1155ApproveCall
         ]);
     }
 
@@ -385,7 +386,6 @@ export class Wrap {
                 calculated_amount_threshold: 0,
             })
         };
-
 
         return Wrap.account.execute([
             Wrap.createTransferCall(Wrap.ERC20Address,params.simpleSwapperAddress,params.amountIn),
