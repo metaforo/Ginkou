@@ -1,3 +1,5 @@
+![image](https://github.com/metaforo/Ginkou/assets/5987831/c307d624-5c01-4eac-9a0f-51359c25e6c2)
+
 # Ginkou
 
 1. Determine if the current player exists based on their wallet address. If the player does not exist, they must be created. 
