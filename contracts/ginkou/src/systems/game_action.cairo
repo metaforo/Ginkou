@@ -7,8 +7,7 @@ trait IGameAction<TConstactState> {
         preparation_phase: u64,
         collect_interval: u64,
         end_block: u64,
-        gold_addr: ContractAddress,
-        silver_addr: ContractAddress,
+        erc_hash: felt252,
     ) -> u64;
 }
 
@@ -28,8 +27,7 @@ mod game_actions {
             preparation_phase: u64,
             collect_interval: u64,
             end_block: u64,
-            gold_addr: ContractAddress,
-            silver_addr: ContractAddress,
+            erc_hash: felt252,
         ) -> u64 {
             let world = self.world_dispatcher.read();
 
@@ -45,8 +43,7 @@ mod game_actions {
                 preparation_phase,
                 collect_interval,
                 end_block,
-                gold_addr,
-                silver_addr,
+                erc_hash,
                 status,
             };
             let game_tracker = GameTracker { id: GAME_CONFIG, count: game_id, last_result: '' };

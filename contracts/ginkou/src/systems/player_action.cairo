@@ -17,7 +17,7 @@ mod player_actions {
     use super::IPlayerAction;
 
     use Ginkou::components::game::{Game, GameStatus, GameInfo, GameTrait, GameTracker};
-    use Ginkou::components::player::{Player, PlayerInfo};
+    use Ginkou::components::player::{Player, PlayerInfo, PlayerResource};
     use Ginkou::constants::{GAME_CONFIG, ResourceType};
     use Ginkou::utils;
 
@@ -47,10 +47,6 @@ mod player_actions {
                 player_id,
                 owner,
                 name,
-                gold: 10,
-                silver: 10,
-                iron: 100,
-                copper: 100,
                 last_collect_block: block_number,
                 transaction_count: 0,
             };
@@ -59,7 +55,6 @@ mod player_actions {
 
             player_id
         }
-
 
         fn collect_resource(self: @ContractState, game_id: u64, player_id: u64,) -> u64 {
             let world = self.world_dispatcher.read();
@@ -75,13 +70,12 @@ mod player_actions {
                 player_info.last_collect_block + game.collect_interval >= block_number,
                 'collect too quick'
             );
-            // TODO: collect resource and type should be random
-
+            // TODO: collect resource and type should be random (now is 1)
             player_info.last_collect_block = block_number;
-            player_info.gold += 2;
-            player_info.silver += 2;
+            let mut player_resource = get!(world, (game_id, player_id, 1), (PlayerResource));
+            player_resource.amount += 1;
 
-            set!(world, (player_info));
+            set!(world, (player_info, player_resource));
 
             0
         }

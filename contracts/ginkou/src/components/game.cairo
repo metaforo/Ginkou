@@ -10,8 +10,7 @@ struct Game {
     preparation_phase: u64,
     collect_interval: u64,
     end_block: u64,
-    gold_addr: ContractAddress,
-    silver_addr: ContractAddress,
+    erc_hash: felt252,
     status: u64,
 }
 
@@ -45,29 +44,37 @@ impl GameImpl of GameTrait {
 
     fn refresh_status(ref self: Game, world: IWorldDispatcher) {
         self.assert_existed();
-
-        let block_number = utils::get_block_number();
-        if self.status == GameStatus::preparing
-            && (block_number - self.start_block) > self.preparation_phase {
-            self.status = GameStatus::playing;
-            set!(world, (self));
-        } else if self.status == GameStatus::playing && block_number > self.end_block {
-            self.status = GameStatus::ended;
-            set!(world, (self));
-        }
+        // TODO: Don't check game status for demo.
+        // let block_number = utils::get_block_number();
+        // if self.status == GameStatus::preparing
+        //     && (block_number - self.start_block) > self.preparation_phase {
+        //     self.status = GameStatus::playing;
+        //     set!(world, (self));
+        // } else if self.status == GameStatus::playing && block_number > self.end_block {
+        //     self.status = GameStatus::ended;
+        //     set!(world, (self));
+        // }
     }
 
     fn assert_can_create_player(ref self: Game, world: IWorldDispatcher) {
         self.refresh_status(world);
+        // TODO: Don't check game status for demo.
+        // assert(self.status != GameStatus::ended, 'Game has ended');
+        // assert(self.status != GameStatus::playing, 'Prepare phase ended');
+    }
 
-        assert(self.status != GameStatus::ended, 'Game has ended');
-        assert(self.status != GameStatus::playing, 'Prepare phase ended');
+    fn assert_can_create_erc(ref self: Game, world: IWorldDispatcher) {
+        self.refresh_status(world);
+        // TODO: Don't check game status for demo.
+        // assert(self.status != GameStatus::ended, 'Game has ended');
+        // assert(self.status != GameStatus::playing, 'Prepare phase ended');
     }
 
     fn assert_is_playing(ref self: Game, world: IWorldDispatcher) {
         self.assert_existed();
-        self.refresh_status(world);
-        assert(self.status != GameStatus::ended, 'Game has ended');
-        assert(self.status == GameStatus::playing, 'Game has not started');
+        // TODO: Don't check game status for demo.
+        // self.refresh_status(world);
+        // assert(self.status != GameStatus::ended, 'Game has ended');
+        // assert(self.status == GameStatus::playing, 'Game has not started');
     }
 }
