@@ -19,10 +19,17 @@ struct PlayerInfo {
     player_id: u64,
     owner: ContractAddress,
     name: felt252,
-    gold: u64,
-    silver: u64,
-    iron: u64,
-    copper: u64,
     last_collect_block: u64,
     transaction_count: u64,
+}
+
+#[derive(Model, Copy, Drop, Serde, SerdeLen)]
+struct PlayerResource {
+    #[key]
+    game_id: u64,
+    #[key]
+    player_id: u64,
+    #[key]
+    resource_id: u64,
+    amount: u64,
 }

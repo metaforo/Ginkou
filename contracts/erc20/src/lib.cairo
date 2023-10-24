@@ -1,5 +1,5 @@
 #[starknet::contract]
-mod WGoldToken {
+mod GinkouErc20 {
     use starknet::{ContractAddress, get_caller_address};
     use openzeppelin::access::ownable::Ownable;
     use openzeppelin::token::erc20::erc20::ERC20;
@@ -9,40 +9,23 @@ mod WGoldToken {
 
     #[storage]
     struct Storage {
-        _admin_addr: ContractAddress,
     }
 
     #[constructor]
-    fn constructor(ref self: ContractState, owner: ContractAddress) {
+    fn constructor(ref self: ContractState, owner: ContractAddress, name: felt252, symbol: felt252) {
         let mut unsafe_ownable = Ownable::unsafe_new_contract_state();
         Ownable::InternalImpl::initializer(ref unsafe_ownable, owner);
 
-        let name = 'WGoldToken';
-        let symbol = 'WGold';
-
         let mut unsafe_state = ERC20::unsafe_new_contract_state();
         ERC20::InternalImpl::initializer(ref unsafe_state, name, symbol);
-        ERC20::InternalImpl::_mint(ref unsafe_state, owner, 0xFFFFFFFFFFFFFFF);
-    }
-
-    #[external(v0)]
-    fn change_admin(ref self: ContractState, admin_addr: ContractAddress) {
-        // Set permissions with Ownable
-        let unsafe_ownable = Ownable::unsafe_new_contract_state();
-        Ownable::InternalImpl::assert_only_owner(@unsafe_ownable);
-        self._admin_addr.write(admin_addr);
+        ERC20::InternalImpl::_mint(ref unsafe_state, owner, 0xFFFFFFFFFFFFFFFFFFFFFFFF);
     }
 
     #[external(v0)]
     fn mint(ref self: ContractState, recipient: ContractAddress, amount: u256) {
-        let admin: ContractAddress = self._admin_addr.read();
-        let caller: ContractAddress = get_caller_address();
-        assert(!caller.is_zero(), 'Caller is the zero address');
-        if (caller != admin) {
-            // Set permissions with Ownable
-            let unsafe_ownable = Ownable::unsafe_new_contract_state();
-            Ownable::InternalImpl::assert_only_owner(@unsafe_ownable);
-        }
+        // Set permissions with Ownable
+        let unsafe_ownable = Ownable::unsafe_new_contract_state();
+        Ownable::InternalImpl::assert_only_owner(@unsafe_ownable);
         // Mint tokens if called by the contract owner
         let mut unsafe_erc20 = ERC20::unsafe_new_contract_state();
         ERC20::InternalImpl::_mint(ref unsafe_erc20, recipient, amount);
